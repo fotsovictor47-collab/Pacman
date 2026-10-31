@@ -15,13 +15,15 @@ import javafx.scene.paint.Color;
 public class HelloApplication extends Application {
     private int pacrow;
     private int paccol;
+    private Circle pacman;
+    private String[] maze;
     @Override
     public void start(Stage stage) {
         Pane pane = new Pane();
         Scene scene = new Scene(pane, 200,100);
-            Circle pacman = new Circle(10,10,8,Color.YELLOW);
+            pacman = new Circle(10,10,8,Color.YELLOW);
 
-        String[] maze = {
+        maze = new String[] {
                 "##########",
                 "#P.......#",
                 "#.##.###.#",
@@ -51,37 +53,16 @@ public class HelloApplication extends Application {
 
             scene.setOnKeyPressed(event -> {
                 if (event.getCode() == KeyCode.LEFT) {
-                    int newCol = paccol - 1;
-                    if (!(maze[pacrow].charAt(newCol) == '#')) {
-                        paccol = newCol;
-                        pacman.setTranslateX(paccol * 20);
-                    }
-
-
+                    move(0,-1);
                 }
                 if (event.getCode() == KeyCode.RIGHT) {
-                    int newCol = paccol + 1;
-
-                    if (!(maze[pacrow].charAt(newCol) == '#')) {
-                        paccol = newCol;
-                        pacman.setTranslateX(paccol * 20);
-                    }
+                    move(0,+1);
                 }
                 if (event.getCode() == KeyCode.UP) {
-                    int newRow = pacrow - 1;
-                    if (!(maze[newRow].charAt(paccol) == '#')) {
-                        pacrow = newRow;
-                        pacman.setTranslateY(pacrow * 20);
-                    }
+                    move(-1,0);
                 }
                 if (event.getCode() == KeyCode.DOWN) {
-
-
-                    int newRow = pacrow + 1;
-                    if (!(maze[newRow].charAt(paccol) == '#')) {
-                        pacrow = newRow;
-                        pacman.setTranslateY(pacrow * 20);
-                    }
+                    move(+1,0);
                 }
             });
 
@@ -89,4 +70,16 @@ public class HelloApplication extends Application {
         stage.setScene(scene);
         stage.show();
     }
+    private void move(int rowChange, int colChange){
+        int newRow = pacrow + rowChange;
+        int newCol = paccol + colChange;
+        if(!(maze[newRow].charAt(newCol) == '#') ){
+            pacrow = newRow;
+            paccol = newCol;
+            pacman.setTranslateX(paccol * 20);
+            pacman.setTranslateY(pacrow * 20);
+        }
+
+    }
+
 }
