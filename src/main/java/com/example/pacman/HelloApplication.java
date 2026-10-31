@@ -50,18 +50,39 @@ public class HelloApplication extends Application {
             pane.getChildren().add(pacman);
 
             scene.setOnKeyPressed(event -> {
-               if(event.getCode() == KeyCode.LEFT){
-                   System.out.println("<-");
-               }
-               if(event.getCode() == KeyCode.RIGHT){
-                   System.out.println("->");
-               }
-               if(event.getCode()== KeyCode.UP){
-                   System.out.println("up");
-               }
-               if(event.getCode() == KeyCode.DOWN){
-                   System.out.println("Down");
-               }
+                if (event.getCode() == KeyCode.LEFT) {
+                    int newCol = paccol - 1;
+                    if (!(maze[pacrow].charAt(newCol) == '#')) {
+                        paccol = newCol;
+                        pacman.setTranslateX(paccol * 20);
+                    }
+
+
+                }
+                if (event.getCode() == KeyCode.RIGHT) {
+                    int newCol = paccol + 1;
+
+                    if (!(maze[pacrow].charAt(newCol) == '#')) {
+                        paccol = newCol;
+                        pacman.setTranslateX(paccol * 20);
+                    }
+                }
+                if (event.getCode() == KeyCode.UP) {
+                    int newRow = pacrow - 1;
+                    if (!(maze[newRow].charAt(paccol) == '#')) {
+                        pacrow = newRow;
+                        pacman.setTranslateY(pacrow * 20);
+                    }
+                }
+                if (event.getCode() == KeyCode.DOWN) {
+
+
+                    int newRow = pacrow + 1;
+                    if (!(maze[newRow].charAt(paccol) == '#')) {
+                        pacrow = newRow;
+                        pacman.setTranslateY(pacrow * 20);
+                    }
+                }
             });
 
 
