@@ -2,6 +2,7 @@ package com.example.pacman;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
@@ -19,6 +20,7 @@ public class HelloApplication extends Application {
         Pane pane = new Pane();
         Scene scene = new Scene(pane, 200,100);
             Circle pacman = new Circle(10,10,8,Color.YELLOW);
+
         String[] maze = {
                 "##########",
                 "#P.......#",
@@ -26,6 +28,7 @@ public class HelloApplication extends Application {
                 "#........#",
                 "##########"
         };
+
         for(int row = 0; row <maze.length; row++){
             for(int col = 0; col < maze[row].length(); col++ ){
                 char c = maze[row].charAt(col);
@@ -41,9 +44,25 @@ public class HelloApplication extends Application {
 
             }
         }
+
             pacman.setTranslateX(paccol * 20);
             pacman.setTranslateY(pacrow  * 20);
             pane.getChildren().add(pacman);
+
+            scene.setOnKeyPressed(event -> {
+               if(event.getCode() == KeyCode.LEFT){
+                   System.out.println("<-");
+               }
+               if(event.getCode() == KeyCode.RIGHT){
+                   System.out.println("->");
+               }
+               if(event.getCode()== KeyCode.UP){
+                   System.out.println("up");
+               }
+               if(event.getCode() == KeyCode.DOWN){
+                   System.out.println("Down");
+               }
+            });
 
 
         stage.setScene(scene);
